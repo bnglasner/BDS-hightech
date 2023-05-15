@@ -97,121 +97,121 @@ colnames(freddie_mac_hpi) <- c("year", "month", "geo_type", "MSA_Name", "MSA", "
 acs_education_2005 <- getCensus(
   name = "acs/acs1",
   vintage = 2005, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*") %>% mutate(year = 2005)
-colnames (acs_education_2005) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2005) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## 2006 one-year ACS: Educational attainment for 25+ population: HS, BA by MSA
 acs_education_2006 <- getCensus(
   name = "acs/acs1",
   vintage = 2006, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2006)
-colnames (acs_education_2006) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2006) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## 2007 one-year ACS: Educational attainment for 25+ population: HS, BA by MSA
 acs_education_2007 <- getCensus(
   name = "acs/acs1",
   vintage = 2007, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2007)
-colnames (acs_education_2007) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2007) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## 2008 one-year ACS: Educational attainment for 25+ population: HS, BA by MSA
 acs_education_2008 <- getCensus(
   name = "acs/acs1",
   vintage = 2008, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2008)
-colnames (acs_education_2008) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2008) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## 2009 one-year ACS: Educational attainment for 25+ population: HS, BA by MSA
 acs_education_2009 <- getCensus(
   name = "acs/acs1",
   vintage = 2009, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2009)
-colnames (acs_education_2009) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2009) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## 2010 one-year ACS: Educational attainment for 25+ population: HS, BA by MSA
 acs_education_2010 <- getCensus(
   name = "acs/acs1",
   vintage = 2010, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2010)
-colnames (acs_education_2010) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2010) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## 2011 one-year ACS: Educational attainment for 25+ population: HS, BA by MSA
 acs_education_2011 <- getCensus(
   name = "acs/acs1",
   vintage = 2011, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2011)
-colnames (acs_education_2011) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2011) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## 2012 one-year ACS: Educational attainment for 25+ population: HS, BA by MSA
 acs_education_2012 <- getCensus(
   name = "acs/acs1",
   vintage = 2012, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2012)
-colnames (acs_education_2012) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2012) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## 2013 one-year ACS: Educational attainment for 25+ population: HS, BA by MSA
 acs_education_2013 <- getCensus(
   name = "acs/acs1",
   vintage = 2013, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2013)
-colnames (acs_education_2013) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2013) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## 2014 one-year ACS: Educational attainment for 25+ population: HS, BA by MSA
 acs_education_2014 <- getCensus(
   name = "acs/acs1",
   vintage = 2014, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2014)
-colnames (acs_education_2014) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2014) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## 2015 one-year ACS: Educational attainment for 25+ population: HS, BA by MSA
 acs_education_2015 <- getCensus(
   name = "acs/acs1",
   vintage = 2015, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2015)
-colnames (acs_education_2015) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2015) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## 2016 one-year ACS: Educational attainment for 25+ population: HS, BA by MSA
 acs_education_2016 <- getCensus(
   name = "acs/acs1",
   vintage = 2016, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2016)
-colnames (acs_education_2016) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2016) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## 2017 one-year ACS: Educational attainment for 25+ population: HS, BA by MSA
 acs_education_2017 <- getCensus(
   name = "acs/acs1",
   vintage = 2017, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2017)
-colnames (acs_education_2017) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2017) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## 2018 one-year ACS: Educational attainment for 25+ population: HS, BA by MSA
 acs_education_2018 <- getCensus(
   name = "acs/acs1",
   vintage = 2018, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2018)
-colnames (acs_education_2018) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2018) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## 2019 one-year ACS: Educational attainment for 25+ population: HS, BA by MSA
 acs_education_2019 <- getCensus(
   name = "acs/acs1",
   vintage = 2019, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2019)
-colnames (acs_education_2019) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2019) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## No 2020 one-year ACS
 
@@ -219,9 +219,9 @@ colnames (acs_education_2019) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "M
 acs_education_2021 <- getCensus(
   name = "acs/acs1",
   vintage = 2021, 
-  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E"), 
+  vars = c("NAME", "B15002_001E", "B15002_011E", "B15002_015E","B15002_028E", "B15002_032E", "B25105_001E"), 
   region = "metropolitan statistical area/micropolitan statistical area:*")%>% mutate(year = 2021)
-colnames (acs_education_2021) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "year")
+colnames (acs_education_2021) <- c ("MSA", "MSA_Name", "Pop_25_up","Male_HS", "Male_BA","Female_HS", "Female_BA", "Median_Housing_Costs", "year")
 
 ## Combine ACS education data, 2005-2021
 
