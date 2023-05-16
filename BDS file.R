@@ -29,6 +29,8 @@ library(tidycensus)
 library(censusapi)
 library (readr)
 library(tidyr)
+library(panelView)
+library(fect)
 
 #################
 ### Set paths ###
@@ -62,7 +64,8 @@ setwd(path_bds)
 ########
 # Collect info on BDS HT at the city - year level
 
-bds_ht_metro <- read_excel ("~/Documents/GitHub/BDS-hightech/BDS_HT_MSA.xlsx", sheet = 1, col_names = TRUE)
+bds_ht_metro <- read_excel ("~/Documents/GitHub/BDS-hightech/BDS_HT_MSA.xlsx", sheet = 1, col_names = TRUE) 
+bds_ht_metro[bds_ht_metro == "(D)"] <- NA
 
 ########
 # Collect info on Industry Composition at the city - year level
@@ -70,6 +73,7 @@ bds_ht_metro <- read_excel ("~/Documents/GitHub/BDS-hightech/BDS_HT_MSA.xlsx", s
 ## MSA x 2-digit sector: All BDS variables:
 url <- "https://www2.census.gov/programs-surveys/bds/tables/time-series/bds2020_msa_sec.csv"
 bds_sector <- read_csv(url, col_names = TRUE)
+bds_sector[bds_sector == "(D)"] <- NA
 ## 2-digit sector employment x MSA, 1978-2020:
 bds_sector_employment <- bds_sector %>% select(year, msa, sector, emp) %>% spread(key = sector, value = emp)
 colnames(bds_sector_employment) <- paste('emp', colnames(bds_sector_employment), sep = "_")
@@ -240,6 +244,57 @@ full_bdsht_analysis_dataset <- merge(full_bdsht_analysis_dataset, freddie_mac_hp
 clean_full_bdsht_analysis_dataset <- full_bdsht_analysis_dataset %>% mutate(BA = Male_BA + Female_BA, HS = Male_HS + Female_HS)%>% select(-c(month, geo_type, Male_BA, Female_BA, Male_HS, Female_HS, MSA_Name.x))
 
 ########
+# "Treatment" status: Treated if 2008 or later, >50th percentile FMHPI, 1990-2007. Considered "dynamic" if average >50th percentile HT startup rate, 1990-2007
+
+dynamic_costs_indicators<- clean_full_bdsht_analysis_dataset %>% filter(year > 1989 & year <2008) %>% select(year, MSA, FMHPI_SA, estabs_entry_rate_HT) %>% group_by(year) %>% mutate(pct_rank_FMHPI = percent_rank(FMHPI_SA), pct_rank_startup = percent_rank(estabs_entry_rate_HT)) %>% group_by(MSA) %>% mutate(avg_percentile_FMHPI = mean(pct_rank_FMHPI), avg_percentile_startup = mean(pct_rank_startup)) %>% mutate(high_cost = ifelse(avg_percentile_FMHPI>= 0.5,1,0), dynamic= ifelse(avg_percentile_startup>= 0.5,1,0) ) %>% select(MSA, high_cost, dynamic) %>% unique()
+clean_full_bdsht_analysis_dataset <- merge(clean_full_bdsht_analysis_dataset,
+                                           dynamic_costs_indicators,
+                   by.x = "MSA",
+                   by.y = "MSA",
+                   all.x = T)
+clean_full_bdsht_analysis_dataset <-clean_full_bdsht_analysis_dataset %>% mutate(treated_yr = ifelse(year >= 2008, 1,0)) %>% mutate(treated = treated_yr * high_cost) %>% filter(year<2020 & dynamic == 1)
+
+panelview(data = clean_full_bdsht_analysis_dataset, formula = estabs_entry_rate_HT~treated, index = c("MSA","year"), 
+          axis.lab = "both", xlab = "year", ylab = "MSA", 
+          theme.bw = TRUE, type = "treat", main = "BDS HT Treated Status")
+
+panelview(data = clean_full_bdsht_analysis_dataset, formula = estabs_entry_rate_HT~treated, index = c("MSA","year"), 
+          axis.lab = "both", xlab = "year", ylab = "MSA", 
+          theme.bw = TRUE, type = "outcome", main = "Simulated Data: Outcome")
+
+# Convert Education and Industry Shares to percentages
+## Education Share of Population 25+ with BA and HS
+
+clean_full_bdsht_analysis_dataset <- clean_full_bdsht_analysis_dataset %>% mutate(share_BA = BA/Pop_25_up, share_HS = HS/Pop_25_up)
+## Industry Shares
+### Convert job totals to numeric
+clean_full_bdsht_analysis_dataset <- clean_full_bdsht_analysis_dataset %>% mutate_at(c('emp_11','emp_21', 'emp_22', 'emp_23', 'emp_31-33','emp_42','emp_44-45', 'emp_48-49', 'emp_51', 'emp_52','emp_53','emp_54','emp_55','emp_56','emp_61','emp_62','emp_71','emp_72','emp_81'), as.numeric)
+
+clean_full_bdsht_analysis_dataset <- clean_full_bdsht_analysis_dataset %>% mutate(total_employment = rowSums(across(c('emp_11','emp_21', 'emp_22', 'emp_23', 'emp_31-33','emp_42','emp_44-45', 'emp_48-49', 'emp_51', 'emp_52','emp_53','emp_54','emp_55','emp_56','emp_61','emp_62','emp_71','emp_72','emp_81')), na.rm = TRUE))
+
+clean_full_bdsht_analysis_dataset <- clean_full_bdsht_analysis_dataset %>% 
+  mutate(share_emp_11 = emp_11/total_employment, 
+         share_emp_21 = emp_21/total_employment, 
+         share_emp_22 = emp_22/total_employment, 
+         share_emp_23 = emp_23/total_employment, 
+         share_emp_31_33 = `emp_31-33`/total_employment, 
+         share_emp_42 = emp_42/total_employment,
+         share_emp_44_45 = `emp_44-45`/total_employment,
+         share_emp_48_49 = `emp_48-49`/total_employment,
+         share_emp_51 = emp_51/total_employment,
+         share_emp_52 = emp_52/total_employment,
+         share_emp_53 = emp_53/total_employment,
+         share_emp_54 = emp_54/total_employment,
+         share_emp_55 = emp_55/total_employment,
+         share_emp_56 = emp_56/total_employment,
+         share_emp_61 = emp_61/total_employment,
+         share_emp_62 = emp_62/total_employment,
+         share_emp_71 = emp_71/total_employment,
+         share_emp_72 = emp_72/total_employment)
+
+
+
+########
 # Other BDS HT data (not at metro level)
 
 bds_national_ht_sector <- read_excel ("~/Documents/GitHub/BDS-hightech/BDS_HT_NHT_National.xlsx", sheet = 1, col_names = TRUE)
@@ -260,3 +315,14 @@ bds_national_ht_sector %>% ggplot(aes(x = year, y = estabs_entry_rate, color = h
 ###         FECT         ###
 ############################
 
+
+# Drop if missing treated variable
+clean_full_bdsht_analysis_dataset <- clean_full_bdsht_analysis_dataset %>% drop_na(treated)
+# Convert startup rate to numeric
+clean_full_bdsht_analysis_dataset$estabs_entry_rate_HT <- as.numeric(clean_full_bdsht_analysis_dataset$estabs_entry_rate_HT)
+# Basic FEct model
+out.fect <- fect(estabs_entry_rate_HT ~ treated + share_BA + share_HS + share_emp_11 + share_emp_21 + share_emp_22 + share_emp_23 + share_emp_31_33 + share_emp_42 + share_emp_44_45 + share_emp_48_49 + share_emp_51 + share_emp_52 + share_emp_53 + share_emp_54 + share_emp_55 + share_emp_56 + share_emp_61 + share_emp_62 + share_emp_71 + share_emp_72, data = clean_full_bdsht_analysis_dataset, index = c("MSA","year"), 
+                 method = "fe", force = "two-way")
+# Plot basic FEct model
+plot(out.fect, main = "Estimated ATT (FEct)", ylab = "Effect of D on Y", 
+     cex.main = 0.8, cex.lab = 0.8, cex.axis = 0.8)
